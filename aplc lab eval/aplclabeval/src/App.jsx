@@ -99,6 +99,11 @@ const WeatherAnalysisApp = () => {
   const WeatherCard = ({ record }) => (
     <div className="box mb-5">
       <div className="level">
+        <div className="level-left">
+          <div className="level-item">
+            <h3 className="title is-5">{record.date}</h3>
+          </div>
+        </div>
         <div className="level-right">
           <div className="level-item">
             <div className="tags">
@@ -324,6 +329,11 @@ const WeatherAnalysisApp = () => {
                   ) : (
                     searchResults.highTempDays.map(record => (
                       <div key={record.id} className="level">
+                        <div className="level-left">
+                          <div className="level-item">
+                            <span>{record.date}</span>
+                          </div>
+                        </div>
                         <div className="level-right">
                           <div className="level-item">
                             <span className="tag is-warning">{record.MaxTemp}°C</span>
@@ -343,6 +353,11 @@ const WeatherAnalysisApp = () => {
                   ) : (
                     searchResults.highWindDays.map(record => (
                       <div key={record.id} className="level">
+                        <div className="level-left">
+                          <div className="level-item">
+                            <span>{record.date}</span>
+                          </div>
+                        </div>
                         <div className="level-right">
                           <div className="level-item">
                             <span className="tag is-success">{record.WindGustSpeed} km/h</span>
@@ -362,6 +377,11 @@ const WeatherAnalysisApp = () => {
               ) : (
                 searchResults.combinedResults.map(record => (
                   <div key={record.id} className="level">
+                    <div className="level-left">
+                      <div className="level-item">
+                        <span>{record.date}</span>
+                      </div>
+                    </div>
                     <div className="level-right">
                       <div className="level-item">
                         <span className="tag is-info">{record.MaxTemp}°C, {record.WindGustSpeed} km/h</span>
@@ -385,6 +405,11 @@ const WeatherAnalysisApp = () => {
                   <p className="subtitle is-6">RainTomorrow == 'Yes'</p>
                   {getDaysWithRainTomorrow.map(record => (
                     <div key={record.id} className="level">
+                      <div className="level-left">
+                        <div className="level-item">
+                          <span>{record.date}</span>
+                        </div>
+                      </div>
                       <div className="level-right">
                         <div className="level-item">
                           <span className="tag is-info">Rain Expected</span>
@@ -404,6 +429,11 @@ const WeatherAnalysisApp = () => {
                   ) : (
                     getHotAndWindyDays.map(record => (
                       <div key={record.id} className="level">
+                        <div className="level-left">
+                          <div className="level-item">
+                            <span>{record.date}</span>
+                          </div>
+                        </div>
                         <div className="level-right">
                           <div className="level-item">
                             <span className="tag is-danger">{record.MaxTemp}°C, {record.WindGustSpeed} km/h</span>
@@ -421,6 +451,11 @@ const WeatherAnalysisApp = () => {
                   <p className="subtitle is-6">RainToday == 'No' but RainTomorrow == 'Yes'</p>
                   {getDaysWithNoRainTodayButRainTomorrow.map(record => (
                     <div key={record.id} className="level">
+                      <div className="level-left">
+                        <div className="level-item">
+                          <span>{record.date}</span>
+                        </div>
+                      </div>
                       <div className="level-right">
                         <div className="level-item">
                           <span className="tag is-primary">Surprise Rain</span>
@@ -440,6 +475,11 @@ const WeatherAnalysisApp = () => {
                   ) : (
                     enhancedData.filter(isHotAndDry).map(record => (
                       <div key={record.id} className="level">
+                        <div className="level-left">
+                          <div className="level-item">
+                            <span>{record.date}</span>
+                          </div>
+                        </div>
                         <div className="level-right">
                           <div className="level-item">
                             <span className="tag is-warning">{record.MaxTemp}°C, {record.Humidity3pm}%</span>
@@ -522,6 +562,7 @@ const WeatherAnalysisApp = () => {
                   <table className="table is-striped is-fullwidth">
                     <thead>
                       <tr>
+                        <th>Date</th>
                         <th>Min Temp</th>
                         <th>Max Temp</th>
                         <th>Daily Range</th>
@@ -530,6 +571,7 @@ const WeatherAnalysisApp = () => {
                     <tbody>
                       {enhancedData.map(record => (
                         <tr key={record.id}>
+                          <td>{record.date}</td>
                           <td>{record.MinTemp}°C</td>
                           <td>{record.MaxTemp}°C</td>
                           <td><strong>{record.DailyRange.toFixed(1)}°C</strong></td>
