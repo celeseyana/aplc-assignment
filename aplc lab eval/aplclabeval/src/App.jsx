@@ -95,6 +95,35 @@ const WeatherAnalysisApp = () => {
     return [...filteredData].sort((a, b) => b[key] - a[key]);
   }, [filteredData, filters.sortBy]);
 
+  const downloadPrologFile = () => {
+    let content = '';
+
+    content += '% Days with Rain Tomorrow\n';
+    getDaysWithRainTomorrow.forEach(record => {
+      content += `rain_tomorrow('${record.date}').\n`;
+    });
+    content += '\n';
+
+    content += '% Hot & Windy Days\n';
+    getHotAndWindyDays.forEach(record => {
+      content += `hot_and_windy('${record.date}', ${record.MaxTemp}, ${record.WindGustSpeed}).\n`;
+    });
+    content += '\n';
+
+    content += '% Surprise Rain Days\n';
+    getDaysWithNoRainTodayButRainTomorrow.forEach(record => {
+      content += `surprise_rain('${record.date}').\n`;
+    });
+
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'weather_facts.pl';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const WeatherCard = ({ record }) => (
     <div className="box mb-5">
@@ -396,8 +425,15 @@ const WeatherAnalysisApp = () => {
 
         {activeTab === 'knowledge' && (
           <div>
-            <h2 className="title is-3">Knowledge Base Queries</h2>
-            
+            <div className='is-flex is-justify-content-space-between is-align-items-center'>
+              <h2 className="title is-3">Knowledge Base Queries</h2>
+              <button
+                className='button is-link is-light is-rounded'
+                onClick={downloadPrologFile}
+              >
+                <span>Download Prolog File</span>
+              </button>
+            </div>
             <div className="columns is-multiline">
               <div className="column is-half">
                 <div className="box">
